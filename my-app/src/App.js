@@ -9,11 +9,10 @@ function App() {
       <header className="App-header">
          <Clock/>
       </header>
-        <main className='App-main'>
+        <main className="App-main">
             <h2>Образ жизни</h2>
             <Food/>
         </main>
-
     </div>
   );
 }

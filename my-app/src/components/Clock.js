@@ -1,7 +1,8 @@
 import React from "react";
 
 import {useState, useEffect} from "react";
-import {getYear} from "date-fns";
+import  {format} from "date-fns";
+import {ru} from 'date-fns/locale';
 
 function Clock () {
     const [date, setDate] = useState(new Date());
@@ -19,9 +20,9 @@ function Clock () {
 
 
     return (
-        <span className="App-Main-Clock">
-            <p>{getYear(date) }-{}</p>
-            <p>{date.toLocaleTimeString('ru-RU')}</p>
+        <span className="App-Header-Clock">
+            <p className="App-Header-Clock-Date">{format(date, 'dd-MM-yyyy EEEE', {locale: ru})}</p>
+            <p className="App-Header-Clock-Time">{date.toLocaleTimeString('ru-RU')}</p>
         </span>
     );
 }
