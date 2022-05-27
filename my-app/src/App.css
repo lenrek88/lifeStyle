@@ -1,0 +1,80 @@
+.App {
+  text-align: center;
+  background-color: #282c34;
+  max-height: 100vh;
+  min-height: 100vh;
+}
+
+.App-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-Main-Clock {
+  font-family: 'Share Tech Mono', monospace;
+  color: #ffffff;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #daf6ff;
+  text-shadow: 0 0 20px rgba(10, 175, 230, 1),  0 0 20px rgba(10, 175, 230, 0);
+}
+
+.btnFoodAdd {
+  width: 85px;
+  height: 50px;
+  border-radius: 50px;
+  font-size: 15px;
+  background-color: white;
+  border: none;
+}
+
+.btnFoodClear {
+  background-color: #c94848;
+  color: white;
+  margin-left: 5px;
+}
+
+.inpFood {
+  font-size: 22px;
+  margin-right: 15px;
+}
+
+form {
+  display: flex;
+}
+.ulFood {
+  list-style-type: none;
+}
+
+.btnFoodItemClear {
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  background-color: #282c34;
+  color: white;
+  border: none;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.listItems {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
