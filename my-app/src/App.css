@@ -65,12 +65,17 @@
   margin-right: 15px;
 }
 
-form {
+.addFood {
   display: flex;
+  justify-content: center;
 }
 
 .ulFood {
   list-style-type: none;
+}
+
+.ulFood th {
+  padding-left: 40px;
 }
 
 .btnFoodItemClear {
