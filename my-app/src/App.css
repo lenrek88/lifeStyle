@@ -1,10 +1,9 @@
 .App {
   text-align: center;
   background: #0f3854;
-  background: radial-gradient(ellipse at top,  #0a2e38  0%, #000000 70%);  max-height: 100vh;
+  background: radial-gradient(ellipse at top,  #0a2e38  0%, #000000 70%);
   min-height: 100vh;
   font-size: calc(10px + 2vmin);
-
 }
 
 .App-header {
@@ -76,6 +75,7 @@
 
 .ulFood th {
   padding-left: 40px;
+  padding-bottom: 5vh;
 }
 
 .btnFoodItemClear {
@@ -95,3 +95,55 @@
   justify-content: center;
 }
 
+.addFavorite {
+  background: url(img/Shape.svg) no-repeat;
+  background-size: cover;
+  border: none;
+  padding: 0.5vh;
+  margin: 1vh;
+  width: 2vh;
+  height: 2vh;
+}
+
+.addedFavorite {
+  background: url(img/ShapeLike.svg) no-repeat;
+  background-size: cover;
+  border: none;
+  padding: 0.5vh;
+  margin: 1vh;
+  width: 2vh;
+  height: 2vh;
+}
+
+.modal {
+  height: 100vh;
+  width: 100vw;
+  background-color:  rgba(0,0,0,0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.modal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal__content {
+  padding: 20px;
+
+  border-radius: 12px;
+  background-color: #0f3854 ;
+  transform: scale(0.5);
+  transition: 0.4s all;
+}
+
+.modal__content.active {
+  transform: scale(1);
+}

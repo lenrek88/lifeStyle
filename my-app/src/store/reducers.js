@@ -2,14 +2,16 @@ import {
     ACTION_CHANGE_AVAILABILITY_FOOD,
     ACTION_CHANGE_CELL_ITEM,
     ACTION_EDIT_CELL_ITEM_END,
-    ACTION_EDIT_CELL_ITEM_START
+    ACTION_EDIT_CELL_ITEM_START,
+    ACTION_ADD_FAVORITE, ACTION_CLEAR_FAVORITE, ACTION_ADD_FOOD_FROM_FAVORITE
 } from "../index";
 import {ACTION_CLEAR_AVAILABILITY_FOOD} from "../index";
 import {ACTION_CLEAR_FOOD_ITEM} from "../index";
 
 
 const initalState = {
-    food: JSON.parse(localStorage.getItem('state_food'))
+    food: JSON.parse(localStorage.getItem('state_food')),
+    favorite: JSON.parse(localStorage.getItem('state_favorite'))
 };
 
 
@@ -30,6 +32,7 @@ const initalState = {
 //      {id: 0,
 //      rows: [
 //      {isEdit: false, field: 'name', item: 'Молоко'},
+//      {isEdit: false!, field: 'img', item: src},
 //      {isEdit: false, field: 'quantity', item: '1'},
 //      {isEdit: false, field: 'b', item: '12'},
 //      {isEdit: false, field: 'z', item: '40'},
@@ -40,6 +43,9 @@ const initalState = {
 //      ...
 //      {id: 24, item: 'Томатная паста'}
 //  ];
+//  favorite: [
+//          {id 0,
+//
 //
 
 export const rootReducer = (state = initalState, action) => {
@@ -49,6 +55,7 @@ export const rootReducer = (state = initalState, action) => {
                 ...state, food: [...state.food,
                     {
                         id: action.id,
+                        favorite: false,
                         rows: [
                             {isEdit: false, field: 'name', item: action.payload[0]},
                             {isEdit: false, field: 'img', item: action.payload[4]},
@@ -60,9 +67,23 @@ export const rootReducer = (state = initalState, action) => {
                     }
                 ]
             }
+        case ACTION_ADD_FOOD_FROM_FAVORITE:
 
+            let foodFromFavorite2 = state.food.find(element => element.id === action.payload.id)
+            let foodFromFavorite;
+            if (foodFromFavorite2 === undefined) {
+                foodFromFavorite = state.food.concat(action.payload)
+            } else {
+                alert('Продукт уже находится в наличии!')
+                 foodFromFavorite = state.food;
+            }
+            return {
+                ...state, food: foodFromFavorite
+            }
         case ACTION_CLEAR_AVAILABILITY_FOOD:
             return {...state, food: []}
+        case ACTION_CLEAR_FAVORITE:
+            return {...state, favorite: []}
         case ACTION_CLEAR_FOOD_ITEM:
             return {...state, food: [...state.food.filter(item => item.id !== action.payload)]}
         case ACTION_CHANGE_CELL_ITEM:
@@ -70,8 +91,12 @@ export const rootReducer = (state = initalState, action) => {
                 if (obj.id === action.id) {
                     const rows = obj.rows.map(field => {
                         if (field.field === action.field) {
-
-                            return {...field, item: action.event}
+                            if (action.event === '') {
+                                alert('Значение не должно быть пустым!')
+                                return field;
+                            } else {
+                                return {...field, item: action.event}
+                            }
                         } else {
                             return field;
                         }
@@ -87,11 +112,8 @@ export const rootReducer = (state = initalState, action) => {
                 if (obj.id === action.id) {
                     const rows = obj.rows.map(field => {
                         if (field.field === action.field) {
-                            console.log('Сработала)')
                             return {...field, isEdit: true}
                         } else {
-                            console.log('Не сработала(')
-
                             return field;
                         }
                     });
@@ -100,16 +122,14 @@ export const rootReducer = (state = initalState, action) => {
                     return obj;
                 }
             })
-            return {...state, food:newState2}
+            return {...state, food: newState2}
         case ACTION_EDIT_CELL_ITEM_END:
             let newState3 = state.food.map(obj => {
                 if (obj.id === action.id) {
                     const rows = obj.rows.map(field => {
                         if (field.field === action.field) {
-                            console.log('Сработала END)')
                             return {...field, isEdit: false}
                         } else {
-                            console.log('Не сработала( END')
                             return field;
                         }
                     });
@@ -118,9 +138,30 @@ export const rootReducer = (state = initalState, action) => {
                     return obj;
                 }
             })
-            return {...state, food:newState3}
+            return {...state, food: newState3}
         default:
             return state;
+        case ACTION_ADD_FAVORITE:
+            let newAddFavoriteArray;
+            let newState4 = state.food.map(obj => {
+                if (obj.id === action.id) {
+                    if (obj.favorite) {
+                        newAddFavoriteArray = [...state.favorite.filter(item => item.id !== action.id)]
+                        return {...obj, favorite: false}
+                    } else {
+                        newAddFavoriteArray = state.favorite.concat(obj);
+                        return {...obj, favorite: true}
+                    }
+                } else {
+                    return obj;
+                }
+            })
+            return {
+                ...state,
+                food: newState4,
+                favorite: newAddFavoriteArray
+
+            }
     }
 };
 
